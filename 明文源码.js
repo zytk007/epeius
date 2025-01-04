@@ -3,7 +3,7 @@ import { connect } from "cloudflare:sockets";
 
 let password = '';
 let proxyIP = '';
-let sub = '';
+//let sub = '';
 let subConverter = 'SUBAPI.fxxk.dedyn.io';// clash订阅转换后端，目前使用CM的订阅转换功能。自带虚假节点信息防泄露
 let subConfig = "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/config/ACL4SSR_Online_Mini_MultiMode.ini"; //订阅配置文件
 let subProtocol = 'https';
@@ -113,7 +113,7 @@ export default {
 				subEmoji = env.SUBEMOJI || env.EMOJI || subEmoji;
 				if (subEmoji == '0') subEmoji = 'false';
 				if (env.LINK) link = await ADD(env.LINK);
-				sub = env.SUB || sub;
+				let sub = env.SUB || '';
 				subConverter = env.SUBAPI || subConverter;
 				if (subConverter.includes("http://")) {
 					subConverter = subConverter.split("//")[1];

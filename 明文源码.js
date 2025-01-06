@@ -12,8 +12,6 @@ let socks5Address = '';
 let parsedSocks5Address = {};
 let enableSocks = false;
 
-let fakeUserID;
-let fakeHostName;
 const expire = 4102329600;//2099-12-31
 let proxyIPs;
 let socks5s;
@@ -62,7 +60,7 @@ export default {
 			currentDate.setHours(0, 0, 0, 0); // 设置时间为当天
 			const timestamp = Math.ceil(currentDate.getTime() / 1000);
 			const fakeUserIDMD5 = await MD5MD5(`${password}${timestamp}`);
-			fakeUserID = [
+			const fakeUserID = [
 				fakeUserIDMD5.slice(0, 8),
 				fakeUserIDMD5.slice(8, 12),
 				fakeUserIDMD5.slice(12, 16),
@@ -70,7 +68,7 @@ export default {
 				fakeUserIDMD5.slice(20)
 			].join('-');
 
-			fakeHostName = `${fakeUserIDMD5.slice(6, 9)}.${fakeUserIDMD5.slice(13, 19)}`;
+			const fakeHostName = `${fakeUserIDMD5.slice(6, 9)}.${fakeUserIDMD5.slice(13, 19)}`;
 
 			proxyIP = env.PROXYIP || env.proxyip || proxyIP;
 			proxyIPs = await ADD(proxyIP);
@@ -82,7 +80,7 @@ export default {
 			socks5Address = socks5Address.split('//')[1] || socks5Address;
 			if (env.GO2SOCKS5) go2Socks5s = await ADD(env.GO2SOCKS5);
 			if (env.CFPORTS) httpsPorts = await ADD(env.CFPORTS);
-			if (env.BAN) banHosts = await 整理(env.BAN);
+			if (env.BAN) banHosts = await ADD(env.BAN);
 			if (socks5Address) {
 				try {
 					parsedSocks5Address = socks5AddressParser(socks5Address);
@@ -145,14 +143,14 @@ export default {
 							},
 						});
 					case `/${fakeUserID}`:
-						const fakeConfig = await get特洛伊Config(password, request.headers.get('Host'), sub, 'CF-Workers-SUB', RproxyIP, url, env);
+						const fakeConfig = await get特洛伊Config(password, request.headers.get('Host'), sub, 'CF-Workers-SUB', RproxyIP, url, fakeUserID, fakeHostName, env);
 						return new Response(`${fakeConfig}`, { status: 200 });
 					case `/${password}/edit`:
 						const html = await KV(request, env);
 						return html;
 					case `/${password}`:
 						await sendMessage(`#获取订阅 ${FileName}`, request.headers.get('CF-Connecting-IP'), `UA: ${UA}</tg-spoiler>\n域名: ${url.hostname}\n<tg-spoiler>入口: ${url.pathname + url.search}</tg-spoiler>`);
-						const 特洛伊Config = await get特洛伊Config(password, request.headers.get('Host'), sub, UA, RproxyIP, url, env);
+						const 特洛伊Config = await get特洛伊Config(password, request.headers.get('Host'), sub, UA, RproxyIP, url, fakeUserID, fakeHostName, env);
 						const now = Date.now();
 						//const timestamp = Math.floor(now / 1000);
 						const today = new Date(now);
@@ -572,7 +570,7 @@ export {
 //# sourceMappingURL=worker.js.map
 */
 
-function revertFakeInfo(content, userID, hostName, isBase64) {
+function revertFakeInfo(content, userID, hostName, fakeUserID, fakeHostName, isBase64) {
 	if (isBase64) content = atob(content);//Base64解码
 	content = content.replace(new RegExp(fakeUserID, 'g'), userID).replace(new RegExp(fakeHostName, 'g'), hostName);
 	//console.log(content);
@@ -667,7 +665,7 @@ function 配置信息(密码, 域名地址) {
 
 let subParams = ['sub', 'base64', 'b64', 'clash', 'singbox', 'sb', 'surge'];
 const cmad = decodeURIComponent(atob(`dGVsZWdyYW0lMjAlRTQlQkElQTQlRTYlQjUlODElRTclQkUlQTQlMjAlRTYlOEElODAlRTYlOUMlQUYlRTUlQTQlQTclRTQlQkQlQUMlN0UlRTUlOUMlQTglRTclQkElQkYlRTUlOEYlOTElRTclODklOEMhJTNDYnIlM0UKJTNDYSUyMGhyZWYlM0QlMjdodHRwcyUzQSUyRiUyRnQubWUlMkZDTUxpdXNzc3MlMjclM0VodHRwcyUzQSUyRiUyRnQubWUlMkZDTUxpdXNzc3MlM0MlMkZhJTNFJTNDYnIlM0UKLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tJTNDYnIlM0UKZ2l0aHViJTIwJUU5JUExJUI5JUU3JTlCJUFFJUU1JTlDJUIwJUU1JTlEJTgwJTIwU3RhciFTdGFyIVN0YXIhISElM0NiciUzRQolM0NhJTIwaHJlZiUzRCUyN2h0dHBzJTNBJTJGJTJGZ2l0aHViLmNvbSUyRmNtbGl1JTJGZXBlaXVzJTI3JTNFaHR0cHMlM0ElMkYlMkZnaXRodWIuY29tJTJGY21saXUlMkZlcGVpdXMlM0MlMkZhJTNFJTNDYnIlM0UKLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tJTNDYnIlM0UKJTIzJTIzJTIzJTIzJTIzJTIzJTIzJTIzJTIzJTIzJTIzJTIzJTIzJTIzJTIzJTIzJTIzJTIzJTIzJTIzJTIzJTIzJTIzJTIzJTIzJTIzJTIzJTIzJTIzJTIzJTIzJTIzJTIzJTIzJTIzJTIzJTIzJTIzJTIzJTIzJTIzJTIzJTIzJTIzJTIzJTIzJTIzJTIzJTIzJTIzJTIzJTIzJTIzJTIzJTIzJTIzJTIzJTIzJTIzJTIzJTIzJTIzJTIzJTIz`));
-async function get特洛伊Config(password, hostName, sub, UA, RproxyIP, _url, env) {
+async function get特洛伊Config(password, hostName, sub, UA, RproxyIP, _url, fakeUserID, fakeHostName, env) {
 	if (sub) {
 		const match = sub.match(/^(?:https?:\/\/)?([^\/]+)/);
 		if (match) {
@@ -972,7 +970,7 @@ async function get特洛伊Config(password, hostName, sub, UA, RproxyIP, _url, e
 
 			if (_url.pathname == `/${fakeUserID}`) return content;
 
-			content = revertFakeInfo(content, password, hostName, isBase64);
+			content = revertFakeInfo(content, password, hostName, fakeUserID, fakeHostName, isBase64);
 			if (userAgent.includes('surge') || _url.searchParams.has('surge')) content = surge(content, `https://${hostName}/${password}?surge`);
 			return content;
 		} catch (error) {

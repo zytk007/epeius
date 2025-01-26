@@ -161,7 +161,7 @@ export default {
 						let total = 24 * 1099511627776;
 
 						if (userAgent && (userAgent.includes('mozilla') || userAgent.includes('subconverter'))) {
-							return new Response(`<div style="font-size:13px;">${特洛伊Config}</div>`, {
+							return new Response(特洛伊Config, {
 								status: 200,
 								headers: {
 									"Content-Type": "text/html;charset=utf-8",
@@ -171,11 +171,11 @@ export default {
 								}
 							});
 						} else {
-							return new Response(`${特洛伊Config}`, {
+							return new Response(特洛伊Config, {
 								status: 200,
 								headers: {
 									"Content-Disposition": `attachment; filename=${FileName}; filename*=utf-8''${encodeURIComponent(FileName)}`,
-									"Content-Type": "text/plain;charset=utf-8",
+									//"Content-Type": "text/plain;charset=utf-8",
 									"Profile-Update-Interval": "6",
 									"Subscription-Userinfo": `upload=${pagesSum}; download=${workersSum}; total=${total}; expire=${expire}`,
 								}
@@ -820,18 +820,20 @@ async function get特洛伊Config(password, hostName, sub, UA, RproxyIP, _url, f
 			${surge}
 			<strong><a href="javascript:void(0);" id="noticeToggle" onclick="toggleNotice()">实用订阅技巧∨</a></strong><br>
 				<div id="noticeContent" class="notice-content" style="display: none;">
-					<strong>1.</strong> 如您使用的是 PassWall、SSR+ 等路由插件，推荐使用 <strong>Base64订阅地址</strong> 进行订阅；<br>
+					<strong>1.</strong> 如您使用的是 PassWall、PassWall2 路由插件，订阅编辑的 <strong>用户代理(User-Agent)</strong> 设置为 <strong>PassWall</strong> 即可；<br>
 					<br>
-					<strong>2.</strong> 快速切换 <a href='${atob('aHR0cHM6Ly9naXRodWIuY29tL2NtbGl1L1dvcmtlclZsZXNzMnN1Yg==')}'>优选订阅生成器</a> 至：sub.google.com，您可将"?sub=sub.google.com"参数添加到链接末尾，例如：<br>
+					<strong>2.</strong> 如您使用的是 SSR+ 路由插件，推荐使用 <strong>Base64订阅地址</strong> 进行订阅；<br>
+					<br>
+					<strong>3.</strong> 快速切换 <a href='${atob('aHR0cHM6Ly9naXRodWIuY29tL2NtbGl1L1dvcmtlclZsZXNzMnN1Yg==')}'>优选订阅生成器</a> 至：sub.google.com，您可将"?sub=sub.google.com"参数添加到链接末尾，例如：<br>
 					&nbsp;&nbsp;https://${proxyhost}${hostName}/${password}<strong>?sub=sub.google.com</strong><br>
 					<br>
-					<strong>3.</strong> 快速更换 PROXYIP 至：proxyip.fxxk.dedyn.io:443，您可将"?proxyip=proxyip.fxxk.dedyn.io:443"参数添加到链接末尾，例如：<br>
+					<strong>4.</strong> 快速更换 PROXYIP 至：proxyip.fxxk.dedyn.io:443，您可将"?proxyip=proxyip.fxxk.dedyn.io:443"参数添加到链接末尾，例如：<br>
 					&nbsp;&nbsp; https://${proxyhost}${hostName}/${password}<strong>?proxyip=proxyip.fxxk.dedyn.io:443</strong><br>
 					<br>
-					<strong>4.</strong> 快速更换 SOCKS5 至：user:password@127.0.0.1:1080，您可将"?socks5=user:password@127.0.0.1:1080"参数添加到链接末尾，例如：<br>
+					<strong>5.</strong> 快速更换 SOCKS5 至：user:password@127.0.0.1:1080，您可将"?socks5=user:password@127.0.0.1:1080"参数添加到链接末尾，例如：<br>
 					&nbsp;&nbsp;https://${proxyhost}${hostName}/${password}<strong>?socks5=user:password@127.0.0.1:1080</strong><br>
 					<br>
-					<strong>5.</strong> 如需指定多个参数则需要使用'&'做间隔，例如：<br>
+					<strong>6.</strong> 如需指定多个参数则需要使用'&'做间隔，例如：<br>
 					&nbsp;&nbsp;https://${proxyhost}${hostName}/${password}?sub=sub.google.com<strong>&</strong>proxyip=proxyip.fxxk.dedyn.io<br>
 				</div>
 			<script src="https://cdn.jsdelivr.net/npm/@keeex/qrcodejs-kx@1.0.2/qrcode.min.js"></script>
@@ -895,7 +897,7 @@ async function get特洛伊Config(password, hostName, sub, UA, RproxyIP, _url, f
 			################################################################<br>
 			${cmad}
 			`;
-		return 节点配置页;
+		return `<div style="font-size:13px;">${节点配置页}</div>`;
 	} else {
 		if (typeof fetch != 'function') {
 			return 'Error: fetch is not available in this environment.';
@@ -942,7 +944,7 @@ async function get特洛伊Config(password, hostName, sub, UA, RproxyIP, _url, f
 			url = `https://${hostName}/${fakeUserID + _url.search}`;
 		}
 
-		if (!userAgent.includes(('CF-Workers-SUB').toLowerCase())) {
+		if (!userAgent.includes(('CF-Workers-SUB').toLowerCase()) && !_url.searchParams.has('b64') && !_url.searchParams.has('base64')) {
 			if ((userAgent.includes('clash') && !userAgent.includes('nekobox')) || (_url.searchParams.has('clash'))) {
 				url = `${subProtocol}://${subConverter}/sub?target=clash&url=${encodeURIComponent(url)}&insert=false&config=${encodeURIComponent(subConfig)}&emoji=${subEmoji}&list=false&tfo=false&scv=true&fdn=false&sort=false&new_name=true`;
 				isBase64 = false;
@@ -1269,7 +1271,7 @@ async function getAddressesapi(api) {
 		controller.abort(); // 取消所有请求
 	}, 2000); // 2秒后触发
 
-	try {   
+	try {
 		// 使用Promise.allSettled等待所有API请求完成，无论成功或失败
 		// 对api数组进行遍历，对每个API地址发起fetch请求
 		const responses = await Promise.allSettled(api.map(apiUrl => fetch(apiUrl, {

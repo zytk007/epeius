@@ -425,7 +425,7 @@ async function handleTCPOutBound(remoteSocket, addressRemote, portRemote, rawCli
 			tcpSocket = await connectAndWrite(addressRemote, portRemote, true);
 		} else {
 			if (!proxyIP || proxyIP == '') {
-				proxyIP = atob('UFJPWFlJUC50cDEuZnh4ay5kZWR5bi5pbw==');
+				proxyIP = atob('UFJPWFlJUC50cDEuMDkwMjI3Lnh5eg==');
 			} else if (proxyIP.includes(']:')) {
 				portRemote = proxyIP.split(']:')[1] || portRemote;
 				proxyIP = proxyIP.split(']:')[0] || proxyIP;

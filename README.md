@@ -1,13 +1,13 @@
-# epeius
+# 🚀 epeius
 这是一个基于 CF Worker 平台的脚本，在原版的基础上修改了显示 Trojan 配置信息转换为订阅内容。使用该脚本，你可以方便地将 Trojan 配置信息使用在线配置转换到 Clash 或 Singbox 等工具中。
 
 - **一步到位**部署视频教程：https://youtu.be/MBlAqYajVSY ***小白必看 一步到胃 最佳推荐!!!***
 - **自制优选**订阅视频教程：https://youtu.be/jOhq3QpXG_I *折腾自己的专属订阅*
 - **进阶使用**技巧视频教程：https://youtu.be/0Cd8uTNJj1Q *然后成为折腾的王*
 
-Telegram交流群：[@CMLiussss](https://t.me/CMLiussss)，**感谢[Alice Networks](https://url.cmliussss.com/alice)提供的云服务器维持[CM订阅转换服务](https://sub.fxxk.dedyn.io/)！**
+Telegram交流群：[@CMLiussss](https://t.me/CMLiussss)，**感谢[Alice Networks](https://url.cmliussss.com/alice)提供的云服务器维持[CM订阅转换服务](https://sub.cmliussss.com/)！**
 
-# 免责声明
+## ⚠️ 免责声明
 
 本免责声明适用于 GitHub 上的 “epeius” 项目（以下简称“本项目”），项目链接为：https://github.com/cmliu/epeius 。
 
@@ -28,12 +28,12 @@ Telegram交流群：[@CMLiussss](https://t.me/CMLiussss)，**感谢[Alice Networ
 
 作者保留随时更新本免责声明的权利，且不另行通知。最新版本的免责声明将发布在本项目的 GitHub 页面上。
 
-## 风险提示
+## 🔥 风险提示
 - 通过提交虚假的节点配置给订阅服务，避免节点配置信息泄露。
 - 另外，您也可以选择自行部署 [WorkerVless2sub 订阅生成服务](https://github.com/cmliu/WorkerVless2sub)，这样既可以利用订阅生成器的便利。
 
-# 如何使用?
-## Workers 部署方法 [视频教程](https://www.youtube.com/watch?v=MBlAqYajVSY&t=169s)
+## 💡 如何使用?
+### ⚙️ Workers 部署方法 [视频教程](https://www.youtube.com/watch?v=MBlAqYajVSY&t=169s)
 
 <details>
 <summary><code><strong>「 Workers 部署文字教程 」</strong></code></summary>
@@ -56,7 +56,7 @@ Telegram交流群：[@CMLiussss](https://t.me/CMLiussss)，**感谢[Alice Networ
      ```
    - 或 给 `sub` 添加 **Trojan优选订阅生成器** 地址，例如：
      ```js
-     let sub = 'Trojan.fxxk.dedyn.io';
+     let sub = 'Trojan.cmliussss.net';
      ```
 
 3. 访问订阅内容：
@@ -72,7 +72,7 @@ Telegram交流群：[@CMLiussss](https://t.me/CMLiussss)，**感谢[Alice Networ
 
 </details>
 
-## Pages 上传 部署方法
+### 🛠 Pages 上传 部署方法
 
 <details>
 <summary><code><strong>「 Pages 上传文件部署文字教程 」</strong></code></summary>
@@ -114,7 +114,7 @@ Telegram交流群：[@CMLiussss](https://t.me/CMLiussss)，**感谢[Alice Networ
 
 </details>
 
-## Pages GitHub 部署方法 [视频教程](https://www.youtube.com/watch?v=0Cd8uTNJj1Q&t=96s)
+### 🛠 Pages GitHub 部署方法 [视频教程](https://www.youtube.com/watch?v=0Cd8uTNJj1Q&t=96s)
 
 <details>
 <summary><code><strong>「 Pages GitHub 部署文字教程 」</strong></code></summary>
@@ -155,11 +155,11 @@ Telegram交流群：[@CMLiussss](https://t.me/CMLiussss)，**感谢[Alice Networ
    
 </details>
 
-## 变量说明
+## 🔑 变量说明
 | 变量名 | 示例 | 备注 |
 |--------|---------|-----|
 | PASSWORD | `auto` | 可以取任意值 |
-| PROXYIP | `proxyip.fxxk.dedyn.io:443` | 备选作为访问CFCDN站点的代理节点(支持多ProxyIP, ProxyIP之间使用`,`或`换行`作间隔) |
+| PROXYIP | `proxyip.cmliussss.net:443` | 备选作为访问CFCDN站点的代理节点(支持多ProxyIP, ProxyIP之间使用`,`或`换行`作间隔) |
 | SOCKS5  | `user:password@127.0.0.1:1080` | 优先作为访问CFCDN站点的SOCKS5代理(支持多socks5, socks5之间使用`,`或`换行`作间隔) |
 | GO2SOCKS5  | `blog.cmliussss.com`,`*.ip111.cn`,`*google.com` | 设置`SOCKS5`变量之后，可设置强制使用socks5访问名单(`*`可作为通配符，`换行`作多元素间隔) |
 | ADD | `www.csgo.com:2087`,`icook.hk` | 本地优选域名/优选IP(支持多元素之间`,`或`换行`作间隔) |
@@ -169,8 +169,8 @@ Telegram交流群：[@CMLiussss](https://t.me/CMLiussss)，**感谢[Alice Networ
 | CSVREMARK | `1` | CSV备注所在列偏移量 |
 | TGTOKEN | `6894123456:XXXXXXXXXX0qExVsBPUhHDAbXXXXXqWXgBA` | 发送TG通知的机器人token | 
 | TGID | `6946912345` | 接收TG通知的账户数字ID | 
-| SUB | `Trojan.fxxk.dedyn.io` | 优选订阅生成器域名(使用订阅器将放弃`ADD`内的本地优选订阅内容) |
-| SUBAPI | `SUBAPI.fxxk.dedyn.io` | clash、singbox等 订阅转换后端 |
+| SUB | `Trojan.cmliussss.net` | 优选订阅生成器域名(使用订阅器将放弃`ADD`内的本地优选订阅内容) |
+| SUBAPI | `SUBAPI.cmliussss.net` | clash、singbox等 订阅转换后端 |
 | SUBCONFIG | [https://raw.github.../ACL4SSR_Online_Mini.ini](https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/config/ACL4SSR_Online_Mini.ini) | clash、singbox等 订阅转换配置文件 |
 | SUBEMOJI | `false` | 订阅转换是否启用Emoji(默认`true`) |
 | SUBNAME | `epeius` | 订阅名称 | 
@@ -179,7 +179,7 @@ Telegram交流群：[@CMLiussss](https://t.me/CMLiussss)，**感谢[Alice Networ
 | URL | `https://blog.cmliussss.com` | 主页反代伪装(支持多url, url之间使用`,`或`换行`作间隔, 乱设容易触发反诈) |
 | CFPORTS | `2053`,`2096`,`8443` | CF账户标准端口列表 |
 
-# 注意事项
+## ❗ 注意事项
 
 ### 开启在线编辑优选列表
 - 绑定名为`KV`的KV空间，即可在无`SUB`的前提下，在配置页实现在线编辑`ADD`与`ADDAPI`优选列表；
@@ -193,22 +193,22 @@ Telegram交流群：[@CMLiussss](https://t.me/CMLiussss)，**感谢[Alice Networ
 ### **当`SUB`和`ADD*`均为空时：**
 - 脚本将自动生成基于CF随机IP的线路，每次更新订阅时会生成不同的随机IP，确保您的订阅不会失联！
 
-# 实用技巧
+## 🔧 实用技巧
 本项目提供灵活的订阅配置方案，支持通过URL参数快速自定义订阅内容。
 - 示例订阅地址： `https://epeius.pages.dev/auto` 
 
 1. 更换**订阅生成器**的订阅地址
 
-   快速切换订阅生成器至 `Trojan.fxxk.dedyn.io`：
+   快速切换订阅生成器至 `Trojan.cmliussss.net`：
    ```url
-   https://epeius.pages.dev/auto?sub=Trojan.fxxk.dedyn.io
+   https://epeius.pages.dev/auto?sub=Trojan.cmliussss.net
    ```
 
 2. 更换**PROXYIP**的订阅地址
 
-   快速更换PROXYIP为 `proxyip.fxxk.dedyn.io`：
+   快速更换PROXYIP为 `proxyip.cmliussss.net`：
    ```url
-   https://epeius.pages.dev/auto?proxyip=proxyip.fxxk.dedyn.io
+   https://epeius.pages.dev/auto?proxyip=proxyip.cmliussss.net
    ```
 
 3. 更换**SOCKS5**的订阅地址
@@ -222,16 +222,16 @@ Telegram交流群：[@CMLiussss](https://t.me/CMLiussss)，**感谢[Alice Networ
 
    例如同时修改**订阅生成器**和**PROXYIP**：
    ```url
-   https://epeius.pages.dev/auto?sub=Trojan.fxxk.dedyn.io&proxyip=proxyip.fxxk.dedyn.io
+   https://epeius.pages.dev/auto?sub=Trojan.cmliussss.net&proxyip=proxyip.cmliussss.net
    ```
 
 4. 该项目部署的节点可通过节点PATH(路径)的方式，使用指定的`PROXYIP`或`SOCKS5`！！！**
 
 - 指定 `PROXYIP` 案例
    ```url
-   /proxyip=proxyip.fxxk.dedyn.io
-   /?proxyip=proxyip.fxxk.dedyn.io
-   /proxyip.fxxk.dedyn.io (仅限于域名开头为'proxyip.'的域名)
+   /proxyip=proxyip.cmliussss.net
+   /?proxyip=proxyip.cmliussss.net
+   /proxyip.cmliussss.net (仅限于域名开头为'proxyip.'的域名)
    ```
 
 - 指定 `SOCKS5` 案例
@@ -248,10 +248,10 @@ Telegram交流群：[@CMLiussss](https://t.me/CMLiussss)，**感谢[Alice Networ
    https://raw.githubusercontent.com/cmliu/WorkerVless2sub/main/addressesapi.txt?proxyip=true
    ```
 
-## Star 星星走起
+## ⭐ Star 星星走起
 [![Stargazers over time](https://starchart.cc/cmliu/epeius.svg?variant=adaptive)](https://starchart.cc/cmliu/epeius)
 
-## 已适配客户端
+## 💻 已适配客户端
 ### Windows
    - [v2rayN](https://github.com/2dust/v2rayN)
    - clash.meta（[FlClash](https://github.com/chen08209/FlClash)，[mihomo-party](https://github.com/mihomo-party-org/mihomo-party)，[clash-verge-rev](https://github.com/clash-verge-rev/clash-verge-rev)，[Clash Nyanpasu](https://github.com/keiko233/clash-nyanpasu)）
@@ -264,5 +264,5 @@ Telegram交流群：[@CMLiussss](https://t.me/CMLiussss)，**感谢[Alice Networ
 ### MacOS
    - clash.meta（[FlClash](https://github.com/chen08209/FlClash)，[mihomo-party](https://github.com/mihomo-party-org/mihomo-party)）
 
-# 感谢
+# 🙏 感谢
 [ca110us](https://github.com/ca110us/epeius)、[xream](https://github.com/xream)、[3Kmfi6HP](https://github.com/6Kmfi6HP/EDtunnel)、[zizifn](https://github.com/zizifn/edgetunnel)、[emn178](https://github.com/emn178/js-sha256)、[ACL4SSR](https://github.com/ACL4SSR/ACL4SSR/tree/master/Clash/config)、[SHIJS1999](https://github.com/SHIJS1999/cloudflare-worker-vless-ip)、<a href="https://url.cmliussss.com/alice"><img src="https://alicenetworks.net/templates/lagom2/assets/img/logo/logo_big.194980063.png" width="150" height="75" alt="Alice Networks LTD"/></a>、

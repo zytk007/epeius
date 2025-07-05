@@ -922,8 +922,8 @@ async function get特洛伊Config(password, hostName, sub, UA, RproxyIP, _url, f
             SCV（跳过TLS证书验证）: ${SCV}<br>
             <br>
             ${订阅器}<br>
-            SUBAPI（订阅转换后端）: ${subProtocol}://${subConverter}<br>
-            SUBCONFIG（订阅转换配置文件）: ${subConfig}<br>
+            SUBAPI（订阅转换后端）: <a href='${subProtocol}://${subConverter}/version' target="_blank" rel="noopener noreferrer">${subProtocol}://${subConverter}</a><br>
+            SUBCONFIG（订阅转换配置文件）: <a href='${subConfig}' target="_blank" rel="noopener noreferrer">${subConfig}</a><br>
             ---------------------------------------------------------------<br>
             ################################################################<br>
             v2ray<br>

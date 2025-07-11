@@ -207,12 +207,13 @@ export default {
                     enableHttp = url.pathname.includes('http://');
                     socks5Address = url.pathname.split('://')[1].split('#')[0];
                     if (socks5Address.includes('@')) {
-                        let userPassword = socks5Address.split('@')[0].replaceAll('%3D', '=');
+                        const lastAtIndex = socks5Address.lastIndexOf('@');
+                        let userPassword = socks5Address.substring(0, lastAtIndex).replaceAll('%3D', '=');
                         const base64Regex = /^(?:[A-Z0-9+/]{4})*(?:[A-Z0-9+/]{2}==|[A-Z0-9+/]{3}=)?$/i;
                         if (base64Regex.test(userPassword) && !userPassword.includes(':')) userPassword = atob(userPassword);
-                        socks5Address = `${userPassword}@${socks5Address.split('@')[1]}`;
+                        socks5Address = `${userPassword}@${socks5Address.substring(lastAtIndex + 1)}`;
                     }
-                    go2Socks5s = ['all in'];
+                    go2Socks5s = ['all in'];//开启全局SOCKS5
                 }
 
                 if (socks5Address) {
@@ -1315,35 +1316,54 @@ async function httpConnect(addressRemote, portRemote, log) {
 }
 
 /**
+ * SOCKS5 代理地址解析器
+ * 此函数用于解析 SOCKS5 代理地址字符串，提取出用户名、密码、主机名和端口号
  * 
- * @param {string} address
+ * @param {string} address SOCKS5 代理地址，格式可以是：
+ *   - "username:password@hostname:port" （带认证）
+ *   - "hostname:port" （不需认证）
+ *   - "username:password@[ipv6]:port" （IPv6 地址需要用方括号括起来）
  */
 function socks5AddressParser(address) {
-    let [latter, former] = address.split("@").reverse();
+    // 使用 "@" 分割地址，分为认证部分和服务器地址部分
+    const lastAtIndex = address.lastIndexOf("@");
+    let [latter, former] = lastAtIndex === -1 ? [address, undefined] : [address.substring(lastAtIndex + 1), address.substring(0, lastAtIndex)];
     let username, password, hostname, port;
+
+    // 如果存在 former 部分，说明提供了认证信息
     if (former) {
         const formers = former.split(":");
         if (formers.length !== 2) {
-            throw new Error('Invalid SOCKS address format');
+            throw new Error('无效的 SOCKS 地址格式：认证部分必须是 "username:password" 的形式');
         }
         [username, password] = formers;
     }
+
+    // 解析服务器地址部分
     const latters = latter.split(":");
-    port = Number(latters.pop());
+    // 从末尾提取端口号（因为 IPv6 地址中也包含冒号）
+    port = Number(latters.pop().replace(/[^\d]/g, ''));
     if (isNaN(port)) {
-        throw new Error('Invalid SOCKS address format');
+        throw new Error('无效的 SOCKS 地址格式：端口号必须是数字');
     }
+
+    // 剩余部分就是主机名（可能是域名、IPv4 或 IPv6 地址）
     hostname = latters.join(":");
+
+    // 处理 IPv6 地址的特殊情况
+    // IPv6 地址包含多个冒号，所以必须用方括号括起来，如 [2001:db8::1]
     const regex = /^\[.*\]$/;
     if (hostname.includes(":") && !regex.test(hostname)) {
-        throw new Error('Invalid SOCKS address format');
+        throw new Error('无效的 SOCKS 地址格式：IPv6 地址必须用方括号括起来，如 [2001:db8::1]');
     }
+
     //if (/^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?).){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/.test(hostname)) hostname = `${atob('d3d3Lg==')}${hostname}${atob('LmlwLjA5MDIyNy54eXo=')}`;
+    // 返回解析后的结果
     return {
-        username,
-        password,
-        hostname,
-        port,
+        username,  // 用户名，如果没有则为 undefined
+        password,  // 密码，如果没有则为 undefined
+        hostname,  // 主机名，可以是域名、IPv4 或 IPv6 地址
+        port,	 // 端口号，已转换为数字类型
     }
 }
 

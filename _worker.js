@@ -143,10 +143,10 @@ export default {
                     case '/':
                         if (env.URL302) return Response.redirect(env.URL302, 302);
                         else if (env.URL) return await proxyURL(env.URL, url);
-                        else return new Response(JSON.stringify(request.cf, null, 4), {
+                        else return new Response(await nginx(), {
                             status: 200,
                             headers: {
-                                'content-type': 'application/json',
+                                'Content-Type': 'text/html; charset=UTF-8',
                             },
                         });
                     case `/${fakeUserID}`:
@@ -2272,6 +2272,9 @@ async function bestIP(request, env, txt = 'ADD.txt') {
             } else if (ipSource === 'as24429') {
                 // AS24429列表
                 response = await fetch('https://raw.githubusercontent.com/ipverse/asn-ip/master/as/24429/ipv4-aggregated.txt');
+            } else if (ipSource === 'as35916') {
+                // AS35916列表
+                response = await fetch('https://raw.githubusercontent.com/ipverse/asn-ip/master/as/35916/ipv4-aggregated.txt');
             } else if (ipSource === 'as199524') {
                 // AS199524列表
                 response = await fetch('https://raw.githubusercontent.com/ipverse/asn-ip/master/as/199524/ipv4-aggregated.txt');
@@ -2989,6 +2992,7 @@ async function bestIP(request, env, txt = 'ADD.txt') {
                 <option value="official">CF官方列表</option>
                 <option value="cm">CM整理列表</option>
                 <option value="as13335">AS13335列表</option>
+                <option value="as35916">AS35916列表</option>
                 <option value="as209242">AS209242列表</option>
                 <option value="as24429">AS24429列表(Alibaba)</option>
                 <option value="as199524">AS199524列表(G-Core)</option>
@@ -3496,8 +3500,11 @@ async function bestIP(request, env, txt = 'ADD.txt') {
                 case 'as13335':
                     ipSourceName = 'CF全段';
                     break;
+                case 'as35916':
+                    ipSourceName = 'CF非官方1';
+                    break;
                 case 'as209242':
-                    ipSourceName = 'CF非官方';
+                    ipSourceName = 'CF非官方2';
                     break;
                 case 'as24429':
                     ipSourceName = 'Alibaba';
@@ -3836,4 +3843,35 @@ async function getUsage(accountId, email, apikey, all = 100000) {
         // 发生错误时返回默认值
         return [all, 0, 0, 0];
     }
+}
+
+async function nginx() {
+    const text = `
+	<!DOCTYPE html>
+	<html>
+	<head>
+	<title>Welcome to nginx!</title>
+	<style>
+		body {
+			width: 35em;
+			margin: 0 auto;
+			font-family: Tahoma, Verdana, Arial, sans-serif;
+		}
+	</style>
+	</head>
+	<body>
+	<h1>Welcome to nginx!</h1>
+	<p>If you see this page, the nginx web server is successfully installed and
+	working. Further configuration is required.</p>
+	
+	<p>For online documentation and support please refer to
+	<a href="http://nginx.org/">nginx.org</a>.<br/>
+	Commercial support is available at
+	<a href="http://nginx.com/">nginx.com</a>.</p>
+	
+	<p><em>Thank you for using nginx.</em></p>
+	</body>
+	</html>
+	`
+    return text;
 }

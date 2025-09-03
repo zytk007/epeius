@@ -1004,7 +1004,7 @@ async function get特洛伊Config(password, hostName, sub, UA, RproxyIP, _url, f
             } else {
                 const response = await fetch(url, {
                     headers: {
-                        'User-Agent': 'Mozilla/5.0' + atob('Q0YtV29ya2Vycy1lcGVpdXMvY21saXU='),
+                        'User-Agent': 'v2rayN' + atob('Q0YtV29ya2Vycy1lcGVpdXMvY21saXU='),
                     }
                 });
                 content = await response.text();
